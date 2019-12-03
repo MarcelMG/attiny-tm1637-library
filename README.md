@@ -4,15 +4,15 @@ This is tinyAVR (ATtiny13, 25, 45, 85, 24(A), 44(A), 84(A)) library for 7-segmen
 This is a slightly modified version of the [original library](https://github.com/lpodkalicki/attiny-tm1637-library) by Łukasz Marcin Podkalicki. The pins for CLK and DIO can now be easily modified by changing the following #define's in the header file:
 ```c
 // Pin settings
-#define TM1637_CLK_OUTPUT() DDRA|=(1<<4)
-#define TM1637_CLK_INPUT() DDRA&=~(1<<4)
-#define TM1637_CLK_HIGH() PORTA|=(1<<4)
-#define TM1637_CLK_LOW() PORTA&=~(1<<4)
-#define TM1637_DIO_OUTPUT() DDRA|=(1<<6)
-#define TM1637_DIO_INPUT() DDRA&=~(1<<6)
-#define TM1637_DIO_HIGH() PORTA|=(1<<6)
-#define TM1637_DIO_LOW() PORTA&=~(1<<6)
-#define TM1637_DIO_READ() (PINA&(1<<6))
+#define TM1637_CLK_OUTPUT() DDRA|=(1<<4) // set CLK pin as output
+#define TM1637_CLK_INPUT() DDRA&=~(1<<4) // set CLK pin as input
+#define TM1637_CLK_HIGH() PORTA|=(1<<4) // set CLK pin high
+#define TM1637_CLK_LOW() PORTA&=~(1<<4) // set CLK pin low
+#define TM1637_DIO_OUTPUT() DDRA|=(1<<6) // set DIO pin as output
+#define TM1637_DIO_INPUT() DDRA&=~(1<<6) // set DIO pin as input
+#define TM1637_DIO_HIGH() PORTA|=(1<<6) // set DIO pin high
+#define TM1637_DIO_LOW() PORTA&=~(1<<6) // set DIO pin low
+#define TM1637_DIO_READ() (PINA&(1<<6))// read DIO pin state
 ```
 ![alt text](docs/TM1637.jpg "TM1637 Controller Module")
 
