@@ -1,6 +1,19 @@
 # TM1637 Library
-This is tinyAVR (ATtiny13, ATtiny25, ATtiny45, ATtiny85) library for 7-segment display modules based on TM1637 chip. The TM1637 chip also has keyboard input capability, but it's not implemented in this library.
+This is tinyAVR (ATtiny13, 25, 45, 85, 24(A), 44(A), 84(A)) library for 7-segment display modules based on TM1637 chip. The TM1637 chip also has keyboard input capability, but it's not implemented in this library.
 
+This is a slightly modified version of the [original library](https://github.com/lpodkalicki/attiny-tm1637-library) by Łukasz Marcin Podkalicki. The pins for CLK and DIO can now be easily modified by changing the following #define's in the header file:
+```c
+// Pin settings
+#define TM1637_CLK_OUTPUT() DDRA|=(1<<4)
+#define TM1637_CLK_INPUT() DDRA&=~(1<<4)
+#define TM1637_CLK_HIGH() PORTA|=(1<<4)
+#define TM1637_CLK_LOW() PORTA&=~(1<<4)
+#define TM1637_DIO_OUTPUT() DDRA|=(1<<6)
+#define TM1637_DIO_INPUT() DDRA&=~(1<<6)
+#define TM1637_DIO_HIGH() PORTA|=(1<<6)
+#define TM1637_DIO_LOW() PORTA&=~(1<<6)
+#define TM1637_DIO_READ() (PINA&(1<<6))
+```
 ![alt text](docs/TM1637.jpg "TM1637 Controller Module")
 
 Modules based on TM1637 provide two signal connections (CLK and DIO) and two power connections (VCC and GND). Signal pins can be connected to any pair of digital pins of the AVR chip. Signal pins configuration is defined at the top of library header file, where it can be modifed.
