@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2017-2018, Łukasz Marcin Podkalicki <lpodkalicki@gmail.com>
- *
- * This is ATtiny13/25/45/85 library for 4-Digit LED Display based on TM1637 chip.
+ * slightly modified by Marcel Meyer-Garcia to change pin settings easier via #define's
+ * This is ATtiny13/25/45/85/24/44/84 library for 4-Digit LED Display based on TM1637 chip.
  *
  * Features:
  * - display raw segments
@@ -21,13 +21,7 @@
 #include <util/delay.h>
 #include "tm1637.h"
 
-#define	TM1637_DIO_HIGH()		(PORTB |= _BV(TM1637_DIO_PIN))
-#define	TM1637_DIO_LOW()		(PORTB &= ~_BV(TM1637_DIO_PIN))
-#define	TM1637_DIO_OUTPUT()		(DDRB |= _BV(TM1637_DIO_PIN))
-#define	TM1637_DIO_INPUT()		(DDRB &= ~_BV(TM1637_DIO_PIN))
-#define	TM1637_DIO_READ() 		(((PINB & _BV(TM1637_DIO_PIN)) > 0) ? 1 : 0)
-#define	TM1637_CLK_HIGH()		(PORTB |= _BV(TM1637_CLK_PIN))
-#define	TM1637_CLK_LOW()		(PORTB &= ~_BV(TM1637_CLK_PIN))
+
 
 static void TM1637_send_config(const uint8_t enable, const uint8_t brightness);
 static void TM1637_send_command(const uint8_t value);
@@ -55,8 +49,10 @@ void
 TM1637_init(const uint8_t enable, const uint8_t brightness)
 {
 
-	DDRB |= (_BV(TM1637_DIO_PIN)|_BV(TM1637_CLK_PIN));
-	PORTB &= ~(_BV(TM1637_DIO_PIN)|_BV(TM1637_CLK_PIN));
+	TM1637_DIO_OUTPUT();
+	TM1637_CLK_OUTPUT();
+	TM1637_DIO_LOW();
+	TM1637_CLK_LOW();
 	TM1637_send_config(enable, brightness);
 }
 

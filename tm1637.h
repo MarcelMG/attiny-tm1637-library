@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2017-2018, Łukasz Marcin Podkalicki <lpodkalicki@gmail.com>
- *
- * This is ATtiny13/25/45/85 library for 4-Digit LED Display based on TM1637 chip.
+ * slightly modified by Marcel Meyer-Garcia to change pin settings easier via #define's
+ * This is ATtiny13/25/45/85/24/44/84 library for 4-Digit LED Display based on TM1637 chip.
  *
  * Features:
  * - display raw segments
@@ -21,9 +21,19 @@
 
 #include <stdint.h>
 
+// Pin settings
+#define TM1637_CLK_OUTPUT() DDRA|=(1<<4) // set CLK pin as output
+#define TM1637_CLK_INPUT() DDRA&=~(1<<4) // set CLK pin as input
+#define TM1637_CLK_HIGH() PORTA|=(1<<4) // set CLK pin high
+#define TM1637_CLK_LOW() PORTA&=~(1<<4) // set CLK pin low
+#define TM1637_DIO_OUTPUT() DDRA|=(1<<6) // set DIO pin as output
+#define TM1637_DIO_INPUT() DDRA&=~(1<<6) // set DIO pin as input
+#define TM1637_DIO_HIGH() PORTA|=(1<<6) // set DIO pin high
+#define TM1637_DIO_LOW() PORTA&=~(1<<6) // set DIO pin low
+#define TM1637_DIO_READ() (PINA&(1<<6))// read DIO pin state
+
 // Main Settings
-#define	TM1637_DIO_PIN			PB0
-#define	TM1637_CLK_PIN			PB1
+
 #define	TM1637_DELAY_US			(5)
 #define	TM1637_BRIGHTNESS_MAX		(7)
 #define	TM1637_POSITION_MAX		(4)
